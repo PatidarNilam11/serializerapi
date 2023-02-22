@@ -19,7 +19,7 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-    @post.user_id = params[:post][:user_id]
+    @post.user_id = current_user.id #params[:post][:user_id]
     if @post.save
       render json: @post
     else
@@ -28,6 +28,7 @@ class PostsController < ApplicationController
   end
 
   def update
+    current_user.id
     @post = Post.find(params[:id])
     if @post.update(post_params)
       render json: @post
